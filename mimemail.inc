@@ -64,13 +64,6 @@ function mimemail_headers($headers, $from = NULL) {
     if (!isset($headers['Sender']) || $headers['Sender'] == $default_from) {
       $headers['Sender'] = $from;
     }
-    // This may not work. The MTA may rewrite the Return-Path.
-    if (!isset($headers['Return-Path']) || $headers['Return-Path'] == $default_from) {
-      // According to IANA the current longest TLD is 23 characters.
-      if (preg_match('/[a-z\d\-\.\+_]+@(?:[a-z\d\-]+\.)+[a-z\d]{2,23}/i', $from, $matches)) {
-        $headers['Return-Path'] = "<$matches[0]>";
-      }
-    }
   }
 
   // Convert From header if it is an array.
